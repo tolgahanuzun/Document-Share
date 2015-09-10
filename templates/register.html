@@ -1,83 +1,71 @@
 {% extends "base.html" %}
 
 {% block register %}
-<div class="testbox">
+<div class="container text-center">
+  <div class="row">
+        <form class="form-horizontal" role="form" method="POST" action="/register/">
+        <fieldset>
+            <div id="legend">
+              <legend class="">Register</legend>
+            </div>
 
-{% if request.user.is_authenticated %}
-    <h3>Hoş geldin {{request.user.get_full_name}}</h3>
-{% endif %}
-
-    <h1>Registration</h1>
-
-        <form role="form" method="POST" action="/register/">
         {% csrf_token %}
     <hr>
         {% for register in form %}
         
-        {% if register.name == "first_name" %}      
-            <label id="icon" for="first_name"><i class="fa fa-user"></i></label>
+        {% if register.name == "first_name" %}
+        <div class="control-group">      
+            <label id="icon" for="first_name"><i class="fa fa-user control-label"></i></label>
 
             <input type="text" name="{{ register.name }}" id="id_{{ register.name }}"
-            placeholder="first_name" tabindex="1" 
-            {% if register.errors %}  data-content="{{ register.errors|striptags }}" {% else %} 
-            value="{{ values.first_name }}" {% endif %} required/>
+            placeholder="first_name" tabindex="1" required/>
+        </div>
 
         {% elif register.name == "last_name" %}    
-
-            <label id="icon" for="last_name"><i class="fa fa-user"></i></label>
+        <div class="control-group">
+            <label id="icon" for="last_name"><i class="fa fa-user control-label"></i></label>
             <input type="text" name="{{ register.name }}" id="id_{{ register.name }}"
-            placeholder="last_name" tabindex="2" 
-            {% if register.errors %}  data-content="{{ register.errors|striptags }}" {% else %} 
-            value="{{ values.last_name }}" {% endif %} required/>
+            placeholder="last_name" tabindex="2"  required/>
+        </div>
 
         {% elif register.name == "username" %} 
-
-            <label id="icon" for="username"><i class="fa fa-user"></i></label>
+        <div class="control-group">
+            <label id="icon" for="username"><i class="fa fa-user control-label"></i></label>
             <input type="text" name="{{ register.name }}" id="id_{{ register.name }}"
-             placeholder="username" tabindex="3" 
-            {% if register.errors %}  data-content="{{ register.errors|striptags }}" {% else %} 
-            value="{{ values.username }}" {% endif %} required/>
-        
+             placeholder="username" tabindex="3" required/>
+        </div>
         {% elif register.name == "email" %} 
-
-            <label id="icon" for="email"><i class="fa fa-user"></i></label>
+        <div class="control-group">
+            <label id="icon" for="email"><i class="fa fa-user control-label"></i></label>
             <input type="text" name="{{ register.name }}" id="id_{{ register.name }}"
-            placeholder="email" tabindex="4" 
-            {% if register.errors %}  data-content="{{ register.errors|striptags }}" {% else %} 
-            value="{{ values.email }}" {% endif %} required/>
-           
-        {% elif register.name == "departmenname" %}      
-           
-            <label id="icon" for="departmenname"><i class="fa fa-user"></i></label>
+            placeholder="email" tabindex="4"  required/>
+        </div>   
+        {% elif register.name == "department_name" %}      
+        <div class="control-group">   
+            <label id="icon" for="department_name"><i class="fa fa-user control-label"></i></label>
             <select name="{{ register.name }}" id="id_{{ register.name }}" tabindex="5">
-            {% for departmen_name in Depart  %}
-            <option value="{{ forloop.counter }}">{{ departmen_name.departmenStasion}}</option>
+            {% for department_name in Depart  %}
+            <option value="{{ forloop.counter }}">{{ department_name.department_Name}}</option>
             {% endfor %}
             </select>
-            
+        </div>   
         {% elif register.name == "password1" %}     
-           <br>
-            <label id="icon" for="departmenname"><i class="fa fa-user"></i></label>
+        <div class="control-group">
+            <label id="icon" for="departmenname"><i class="fa fa-user control-label"></i></label>
             <input type="password" name="{{ register.name }}" id="id_{{ register.name }}"
-            placeholder="password1" tabindex="6" 
-            {% if register.errors %}  data-content="{{ register.errors|striptags }}" {% else %} 
-            value="{{ values.password1 }}" {% endif %} required/>
-
+            placeholder="password1" tabindex="6"  required/>
+        </div>    
         {% elif register.name == "password2" %}     
-           
-            <label id="icon" for="departmenname"><i class="fa fa-user"></i></label>
+        <div class="control-group">   
+            <label id="icon" for="departmenname"><i class="fa fa-user control-label"></i></label>
             <input type="password" name="{{ register.name }}" id="id_{{ register.name }}"
-            placeholder="password2" tabindex="7" 
-            {% if register.errors %}  data-content="{{ register.errors|striptags }}" {% else %} 
-            value="{{ values.password2 }}" {% endif %} required/>        
+            placeholder="password2" tabindex="7" required/>        
+        </div>    
 
-
-             <input class="button" type="submit" value="Ekle"/>
+        <div class="control-group">
+             <input class="btn btn-succes center-block" type="submit" value="Ekle"/>
+        </div>
         {% endif %} 
-
-           
-
-             
 
         {% endfor %}    
 
@@ -86,12 +74,6 @@
             <input class="button" type="submit" value="Ekle"/>     -->
 
      </form> 
-
-   
-
-
-
-
-    </div>
-
+  </div>
+</div>
 {% endblock %}
