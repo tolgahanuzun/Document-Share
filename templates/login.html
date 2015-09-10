@@ -2,26 +2,23 @@
 
 {% block login %}
 
-<div class="site__container">
-
-  <div class="grid__container">
-
-    <form action="/login/" method="post" class="form form--login">
-
-    {% csrf_token %}
-    UserName: <input name='username' type='text' placeholder='enter username'/> <br/>
-    Password: <input name='password' type='password' placeholder='enter password'/><br/>
-
-      <div class="form__field">
-        <input type="submit" value="Sign In">
-      </div>
-
-    </form>
-
-    <p class="text--center">Not a member? <a href="/register/">Sign up now</a> <span class="fontawesome-arrow-right"></span></p>
-
-  </div>
-
+<div class="container text-center">
+  <div class="row ">
+      <form action="/login/" method="post" class="form-signin">
+      {% csrf_token %}
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input type="text" name='username' class="form-control" placeholder="username" required="" autofocus="">
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" name='password'  class="form-control" placeholder="Password" required="">
+        <button class="btn btn-success text-center" type="submit">Sign in</button>
+      </form>   
+  </div>  
 </div>
+
+
+
+
+
 
 {% endblock %}
