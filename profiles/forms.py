@@ -38,12 +38,12 @@ class LoginForm(forms.Form):
 
 
 class RegistrationForm(UserCreationForm):
-    departmenname = forms.ModelChoiceField(label=u"departmen Name",
+    department_name = forms.ModelChoiceField(label=u"departmen Name",
         queryset=Department.objects.all(), required=True)
 
     class Meta:
         model = User
-        fields = ("first_name", "last_name", "username", "email", "departmenname", "password1", "password2")
+        fields = ("first_name", "last_name", "username", "email", "department_name", "password1", "password2")
      
     
     def save(self, commit=True):
@@ -58,8 +58,8 @@ class RegistrationForm(UserCreationForm):
             user_profile.save()
 
 
-            department = Department.objects.get(departmenStasion=self.cleaned_data['departmenname'])
-            department.departmenMembers.add(user)
+            department = Department.objects.get(department_Name=self.cleaned_data['department_name'])
+            department.department_Members.add(user)
         
         return user
 
