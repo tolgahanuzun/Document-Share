@@ -1,24 +1,21 @@
 {% extends "base.html" %}
 {% block index %}
 
-<!-- START OF HTML FOR DEMO - NOT NEEDED -->
 
+{% if request.user.is_authenticated %}
+    Welcome {{request.user.get_full_name}}
+
+{% elif not request.user.is_authenticated %}
 <div class="container">
 	<div class="row">
 		<div class="col-sm-offset-3 col-sm-6 col-md-offset-4 col-md-4">
+			<br><br><br>
 			<h1 class="title">
-				
-				{% if request.user.is_authenticated %}
-    			Welcome {{request.user.get_full_name}}
-    			{% endif %}
-
+Hello anonymous. Subscribe to our website and take advantage of the features.
 			</h1>
 		</div>
-	</div>
-	
+	</div>	
 </div>
 
-
-
-
+{% endif %}
 {% endblock %}
