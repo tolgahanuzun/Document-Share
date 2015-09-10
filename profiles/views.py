@@ -74,18 +74,3 @@ def register(request):
                     { 'form':form, "Depart":Depart})
 
 
-# def register(request): 
-#     if request.method == "POST":
-#         form = RegistrationForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             kullanici = authenticate(username=form.cleaned_data['username'],
-#                                      password=form.cleaned_data['password1'])
-#             if kullanici.is_authenticated():
-#                 login(request,kullanici)
-#             return HttpResponseRedirect("/admin/")
-#     else:
-#         form = UserCreationForm()
-#     return render_to_response("register.html",
-#                               locals(),
-#                               context_instance = RequestContext(request))
