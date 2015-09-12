@@ -17,34 +17,42 @@ def index(request):
     return render(request, 'index.html', context)
 
 def login(request):
-    context = {}
-    try:
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            if user.is_active:
+    if not request.user.is_authenticated():
+        context = {}
+        try:
+            username = request.POST['username']
+            password = request.POST['password']
+            user = authenticate(username=username, password=password)
+            if user is not None:
                 auth_login(request, user)
+                return HttpResponseRedirect("/index/")
             else:
                 context['error'] = 'Non active user'
-        else:
-            context['error'] = 'Wrong username or password'
-    except:
-        context['error'] = ''
-    
-    populateContext(request, context)
-    return render(request, 'login.html', context)
+        except:
+            context['error'] = ''
+
+        populateContext(request, context)
+        return render(request, 'login.html', context)
+    else:
+        return HttpResponseRedirect("/index/")
+
+
+
+
+           
 
 
 def logout(request):
     context = {}
     try:
         auth_logout(request)
+        return HttpResponseRedirect("/")
     except:
         context['error'] = 'Some error occured.'
     
     populateContext(request, context)
     return render(request, 'login.html', context)
+
 
 def populateContext(request, context):
     context['authenticated'] = request.user.is_authenticated()
@@ -54,23 +62,25 @@ def populateContext(request, context):
 
     #Kayıt formu
 def register(request): 
-    Depart = Department.objects.all()
-    form = RegistrationForm()
-
-    if request.method == "POST":
-        form = RegistrationForm(request.POST)
-        if  form.is_valid():
-            form.save()       
-            return render(request,"register.html",
-                               locals())
-        else:
-
-            form = RegistrationForm()
-            return render(request,"register.html",
-                               locals())
-    else:
+    if not request.user.is_authenticated():
+        Depart = Department.objects.all()
         form = RegistrationForm()
-        return render(request, "register.html",
-                    { 'form':form, "Depart":Depart})
 
+        if request.method == "POST":
+            form = RegistrationForm(request.POST)
+            if  form.is_valid():
+                form.save()       
+                return render(request,"register.html",
+                                   locals())
+            else:
+
+                form = RegistrationForm()
+                return render(request,"register.html",
+                                   locals())
+        else:
+            form = RegistrationForm()
+            return render(request, "register.html",
+                        { 'form':form, "Depart":Depart})
+    else:
+        return HttpResponseRedirect("/index/")        
 
