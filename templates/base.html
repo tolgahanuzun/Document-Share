@@ -51,53 +51,10 @@
 
 
 
-
-
-
-
-
-
-
-<!-- <nav class="navbar navbar-fixed-left navbar-minimal animate" role="navigation">
-                <div class="navbar-toggler animate">
-                        <span class="menu-icon"></span>
-                </div>
-                <ul class="navbar-menu animate">
-                        {% if not request.user.is_authenticated %}
-                        <li>
-                                <a href="/login/" class="animate">
-                                        <span class="desc animate"> Login </span>
-                                        <span class="fa fa-sign-in"></span>
-                                </a>
-                        </li>
-                        <li>
-                                <a href="/register/" class="animate">
-                                        <span class="desc animate"> Register </span>
-                                        <span class="fa fa-user-plus"></span>
-                                </a>
-                        </li>
-                        {% endif %}
-                        {% if request.user.is_authenticated %}
-                         <li>
-                                <a href="/" class="animate">
-                                        <span class="desc animate"> Homa Page </span>
-                                        <span class="fa fa-home"></span>
-                                </a>
-                        </li>
-                        <li>
-                                <a href="/logout/" class="animate">
-                                        <span class="desc animate"> Logout </span>
-                                        <span class="fa fa-sign-out"></span>
-                                </a>
-                        </li>
-                        {% endif %}
-                </ul>
-</nav> -->
-
-
 	{% block register %}{% endblock %}
 	{% block login %}{% endblock %}
 	{% block index %}{% endblock %}
+    {% block add %}{% endblock %}
 
 
 
