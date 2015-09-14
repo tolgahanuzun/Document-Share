@@ -1,56 +1,58 @@
 {% extends "base.html" %}
 {% block add %}
 
-<form class="form-horizontal">
-<fieldset>
+<form class="form-horizontal" enctype="multipart/form-data" action="/add/" method="POST">
+	{% csrf_token %}
+	<fieldset>
+	<legend>Add Document</legend>
 
-<!-- Form Name -->
-<legend>Add Document</legend>
+	{% for adddoc in form_addDocument %}
 
-<!-- Text input-->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="textinput">Name</label>  
-  <div class="col-md-4">
-  <input id="textinput" name="textinput" type="text" placeholder="placeholder" class="form-control input-md">
-  </div>
-</div>
+		{% if adddoc.name == "name" %}
+		<div class="form-group">
+	  		<label class="col-md-4 control-label" for="textinput">Document Name</label>  
+		  	  <div class="col-md-4">
+				  <input name="{{ adddoc.name }}" id="id_{{ adddoc.name }}" type="text" placeholder="Document" class="form-control input-md">
+		  	</div>
+		</div>
+		{% elif adddoc.name == "description" %} 
+		<div class="form-group">
+		    <label class="col-md-4 control-label" for="textarea">Document description</label>
+			  	<div class="col-md-4">                     
+			    	<textarea name="{{ adddoc.name }}" id="id_{{ adddoc.name }}" class="form-control" >Document description...</textarea>
+				</div>
+		</div>
 
-<!-- Textarea -->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="textarea">description</label>
-  <div class="col-md-4">                     
-    <textarea class="form-control" id="textarea" name="textarea">description</textarea>
-  </div>
-</div>
+		{% elif adddoc.name == "docfiles" %} 
+		<div class="form-group">
+			  <label class="col-md-4 control-label" for="filebutton">File Document</label>
+			  	<div class="col-md-4">
+			    	<input name="{{ adddoc.name }}" id="id_{{ adddoc.name }}" class="input-file" type="file">
+			  	</div>
+		</div>
 
-<!-- File Button --> 
-<div class="form-group">
-  <label class="col-md-4 control-label" for="filebutton">File Button</label>
-  <div class="col-md-4">
-    <input id="filebutton" name="filebutton" class="input-file" type="file">
-  </div>
-</div>
-
-<!-- Select Multiple -->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="selectmultiple">Select Multiple</label>
-  <div class="col-md-4">
-    <select id="selectmultiple" name="selectmultiple" class="form-control" multiple="multiple">
-      <option value="1">Option one</option>
-      <option value="2">Option two</option>
-    </select>
-  </div>
-</div>
-
-<!-- Button -->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="singlebutton">Single Button</label>
-  <div class="col-md-4">
-    <button id="singlebutton" name="singlebutton" class="btn btn-primary">Button</button>
-  </div>
-</div>
-
-</fieldset>
+		{% elif adddoc.name == "send_Department" %} 
+		<div class="form-group">
+			<label class="col-md-4 control-label" for="selectmultiple">Send To Department</label>
+				<div class="col-md-4">
+				    <select name="{{ adddoc.name }}" id="id_{{ adddoc.name }}" 
+				    class="form-control" multiple="multiple">
+						{% for department_name in Depart  %}
+				        <option value="{{ forloop.counter }}">{{ department_name.department_Name}}</option>
+				        {% endfor %}
+				    </select>
+				</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-4 control-label" for="singlebutton">Send</label>
+				<div class="col-md-4">
+				   <button id="singlebutton" name="singlebutton" class="btn btn-primary">Send</button>
+			 	</div>
+		</div>
+		{% endif %} 
+		{% endfor %}
+		
+	</fieldset>
 </form>
 
 
