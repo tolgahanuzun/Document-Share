@@ -20,11 +20,12 @@ class AddDocument(forms.ModelForm):
     name = forms.CharField(label=u"İsim", max_length=50, required=True)
     description = forms.CharField(label=u"Acıklama", max_length=1000, 
                                 required=True, widget=forms.Textarea)
+    docfiles = forms.FileField(label=u"Upload Document", required=False)
     send_Department = forms.ModelChoiceField(label=u"departmen Name",
         queryset=Department.objects.all(), required=True)
     class Meta:
         model = Document
-        fields = ("name", "description","send_Department", "user")
+        fields = ("name", "description","docfiles","send_Department", "user")
 
     
     def save(self, commit=True):
