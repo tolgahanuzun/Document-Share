@@ -12,6 +12,6 @@ class Document(models.Model):
     doc_file = models.FileField(upload_to="documentfiles/" ,verbose_name="Document Update")
     user = models.ForeignKey(User)
     send_Department = models.ManyToManyField("department.Department", verbose_name="Send To Department")
-
+    
     def __unicode__(self):
         return "%s" % (self.name)
