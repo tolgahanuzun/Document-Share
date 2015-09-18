@@ -12,16 +12,38 @@ from document.forms import AddDocument
 
 def addDocumentViews(request):
     Depart = Department.objects.all()
+
     if request.user.is_authenticated():
+
         if request.method == "POST":
-            form_addDocument = AddDocument(request.POST, user=request.user)
+            form_addDocument = AddDocument(request.POST,request.FILES)
+
             if form_addDocument.is_valid():
-                form_addDocument = form_addDocument.save()
-                AddDocument.save() 
+                form_addDocument.save()
+
                 return HttpResponseRedirect("/")
+            else:
+                form_addDocument = AddDocument()
+                return render(request,"add.html",
+                                   locals())
+
         else:
             form_addDocument = AddDocument()
             return render(request, "add.html", {'form_addDocument':form_addDocument,"Depart":Depart})  
+
     else:
         return HttpResponseRedirect("/")
 
+# def addDocumentViews(request):
+#     form = AddDocument()
+#     Depart = Department.objects.all()
+
+#     if request.method== "POST":
+#         form = AddDocument(request.POST)
+
+#         if form.is_valid():
+#             form.instance.user = request.user
+#             form.save()
+            
+
+#     return render(request,"add.html",{'form_addDocument':form,"Depart":Depart})
