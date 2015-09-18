@@ -5,7 +5,7 @@
 	{% csrf_token %}
 	<fieldset>
 	<legend>Add Document</legend>
-
+<!-- {{ form.as_p }} -->
 	{% for adddoc in form_addDocument %}
 
 		{% if adddoc.name == "name" %}
@@ -23,7 +23,7 @@
 				</div>
 		</div>
 
-		{% elif adddoc.name == "docfiles" %} 
+		{% elif adddoc.name == "doc_file" %} 
 		<div class="form-group">
 			  <label class="col-md-4 control-label" for="filebutton">File Document</label>
 			  	<div class="col-md-4">
@@ -36,7 +36,7 @@
 			<label class="col-md-4 control-label" for="selectmultiple">Send To Department</label>
 				<div class="col-md-4">
 				    <select name="{{ adddoc.name }}" id="id_{{ adddoc.name }}" 
-				    class="form-control" multiple="multiple">
+				    class="form-control" >
 						{% for department_name in Depart  %}
 				        <option value="{{ forloop.counter }}">{{ department_name.department_Name}}</option>
 				        {% endfor %}
@@ -52,6 +52,8 @@
 		{% endif %} 
 		{% endfor %}
 		
+
+		 
 	</fieldset>
 </form>
 
