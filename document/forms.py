@@ -17,27 +17,33 @@ from document.models import Document
 from profiles.models import Profile 
 
 class AddDocument(forms.ModelForm):
-    name = forms.CharField(label=u"İsim", max_length=50, required=True)
-    description = forms.CharField(label=u"Acıklama", max_length=1000, 
-                                required=True, widget=forms.Textarea)
-    docfiles = forms.FileField(label=u"Upload Document", required=False)
-    send_Department = forms.ModelChoiceField(label=u"departmen Name",
-        queryset=Department.objects.all(), required=True)
+    # name = forms.CharField(label=u"İsim", max_length=50, required=True)
+    # description = forms.CharField(label=u"Acıklama", max_length=1000, 
+    #                             required=True, widget=forms.Textarea)
+    doc_file = forms.FileField(label=u"Upload Document", required=False)
+    #send_department = forms.ModelChoiceField(label=u"departmen Name",
+    #   queryset=Department.objects.all(), required=True)
+
     class Meta:
         model = Document
-        fields = ("name", "description","docfiles","send_Department", "user")
+        fields = ("name","description","doc_file","send_Department")
 
+# Hatalı kısım
     
     def save(self, commit=True):
+        savedoc = Document()
 
-        document = Document()
-        document.name = self.data.get("name")
-        document.description = self.data.get("description")
+        savedoc.name = self.data.get("name")
+        print savedoc.name
+        savedoc.description = self.data.get("description")
+        print savedoc.description
+        senddepart = Department.objects.get(department_Name=self.data.get("send_Department"))
+        print senddepart
+        savedoc.send_Department = senddepart
+        print savedoc.send_Department
 
-        send_Department = Department.objects.get(department_Name=
-            self.data.get("department_Name"))
-        document.send_Department = send_Department
-        document.user = self.user
-        document.save()
- 
-        return document    
+        savedoc.doc_file = self.data.get("doc_file")
+
+        savedoc.save()
+        return savedoc    
+# Hatalı kısım
