@@ -38,7 +38,7 @@
 				    <select name="{{ adddoc.name }}" id="id_{{ adddoc.name }}" 
 				    class="form-control" >
 						{% for department_name in Depart  %}
-				        <option value="{{ forloop.counter }}">{{ department_name.department_Name}}</option>
+				        <option value="{{ department_name.id }}">{{ department_name.department_Name}}</option>
 				        {% endfor %}
 				    </select>
 				</div>
