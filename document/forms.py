@@ -28,22 +28,19 @@ class AddDocument(forms.ModelForm):
         model = Document
         fields = ("name","description","doc_file","send_Department")
 
-# Hatalı kısım
+
+    def __init__(self, *args, **kwargs):
+       self.user = kwargs.pop('user', None)
+       super(AddDocument, self).__init__(*args, **kwargs)
     
     def save(self, commit=True):
         savedoc = Document()
-
+        
         savedoc.name = self.data.get("name")
-        print savedoc.name
         savedoc.description = self.data.get("description")
-        print savedoc.description
-        senddepart = Department.objects.get(department_Name=self.data.get("send_Department"))
-        print senddepart
-        savedoc.send_Department = senddepart
-        print savedoc.send_Department
-
-        savedoc.doc_file = self.data.get("doc_file")
-
+        savedoc.user = self.user
         savedoc.save()
-        return savedoc    
+            
+        return savedoc 
+
 # Hatalı kısım
