@@ -16,11 +16,18 @@ def addDocumentViews(request):
     if request.user.is_authenticated():
 
         if request.method == "POST":
-            form_addDocument = AddDocument(request.POST,request.FILES)
-
+            form_addDocument = AddDocument(request.POST,request.FILES, user=request.user)
+            dep_name = request.POST.get("send_Department") 
+        
             if form_addDocument.is_valid():
-                form_addDocument.save()
+               
 
+                save_doc = form_addDocument.save()
+                save_doc.send_Department.add(Department.objects.get(id=dep_name))
+                save_doc.doc_file=request.FILES['doc_file']
+                save_doc.save()
+                
+                 
                 return HttpResponseRedirect("/")
             else:
                 form_addDocument = AddDocument()
@@ -34,16 +41,3 @@ def addDocumentViews(request):
     else:
         return HttpResponseRedirect("/")
 
-# def addDocumentViews(request):
-#     form = AddDocument()
-#     Depart = Department.objects.all()
-
-#     if request.method== "POST":
-#         form = AddDocument(request.POST)
-
-#         if form.is_valid():
-#             form.instance.user = request.user
-#             form.save()
-            
-
-#     return render(request,"add.html",{'form_addDocument':form,"Depart":Depart})
