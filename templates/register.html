@@ -1,16 +1,16 @@
 {% extends "base.html" %}
 
 {% block register %}
-<div class="container text-center">
+<div class="container text-center" style="margin-top: 20px;">
   <div class="row">
         <form class="form-horizontal" role="form" method="POST" action="/register/">
-        <fieldset>
+            <hr>
             <div id="legend">
               <legend class="">Register</legend>
             </div>
 
         {% csrf_token %}
-    <hr>
+
         {% for register in form %}
         
         {% if register.name == "first_name" %}
