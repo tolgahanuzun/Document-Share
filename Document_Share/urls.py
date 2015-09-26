@@ -23,7 +23,7 @@ urlpatterns = [
     url(r'^login/','profiles.views.login'),
     url(r'^logout/','profiles.views.logout'),
     url(r'^add/','document.views.addDocumentViews'),
-    url(r'^','profiles.views.index'),
+    url(r'^','document.views.home'),
 
 
 
