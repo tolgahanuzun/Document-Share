@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 from department.models import Department
 from document.models import Document
 from document.forms import AddDocument
+from django.utils import timezone
 
 def addDocumentViews(request):
     Depart = Department.objects.all()
@@ -41,3 +42,26 @@ def addDocumentViews(request):
     else:
         return HttpResponseRedirect("/")
 
+def documentAvailable(all_document):
+    if all_document.count() == 0:
+        return False
+
+    return True        
+
+def home(request):
+    if request.user.is_authenticated():
+
+        Depart = Department.objects.all()
+        AllDocument = Document.objects.order_by("-createtime")
+        Document_available = documentAvailable(AllDocument)
+        currentTime = timezone.localtime(timezone.now())
+        
+        print Department.department_Members
+        if request.user == Department.department_Members:
+            print Depart
+
+        return render(request, "index.html", 
+                      {'AllDocument':AllDocument, 'currentTime':currentTime,
+                       'Document_available':Document_available,'Depart':Depart})
+    else:
+        return render(request, "index.html")
