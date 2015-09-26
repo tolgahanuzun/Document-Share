@@ -12,9 +12,8 @@ from django.http import *
 from django.contrib.auth.forms import UserCreationForm
 
 def index(request):
-    context = {}
-    populateContext(request, context)
-    return render(request, 'index.html', context)
+    
+    return render(request, 'index.html')
 
 def login(request):
     if not request.user.is_authenticated():
