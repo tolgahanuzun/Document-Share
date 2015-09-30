@@ -43,7 +43,7 @@
         {% elif register.name == "department_name" %}      
         <div class="control-group">   
             <label id="icon" for="department_name"><i class="fa fa-user control-label"></i></label>
-            <select name="{{ register.name }}" id="id_{{ register.name }}" tabindex="5">
+            <select name="{{ register.name }}" id="id_{{ register.name }}" tabindex="5" style="margin-right: 143px;">
             {% for department_name in Depart  %}
             <option value="{{ forloop.counter }}">{{ department_name.department_Name}}</option>
             {% endfor %}

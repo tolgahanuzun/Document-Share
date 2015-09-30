@@ -9,26 +9,13 @@
         <div class="fading-side-menu" data-spy="affix" data-offset-top="350">
             <h5>Table of Contents</h5><hr class="no-margin">
             <ul class="list-unstyled">
+              {% for document in user_documents %}
                 <li>
-                    <a href="#intro">
-                        <span class="fa fa-angle-double-right text-primary"></span>Introduction
+                    <a href="#{{document.name}}">
+                        <span class="fa fa-angle-double-right text-primary"></span>{{document.name}}
                     </a>
                 </li>
-                <li>
-                    <a href="#getting-started">
-                        <span class="fa fa-angle-double-right text-primary"></span>Getting started
-                    </a>
-                </li>
-                <li>
-                    <a href="#setting-up-our-page">
-                        <span class="fa fa-angle-double-right text-primary"></span>Setting up our page
-                    </a>
-                </li>
-                <li>
-                    <a href="#conclusion">
-                        <span class="fa fa-angle-double-right text-primary"></span>Conclusion
-                    </a>
-                </li>
+                {% endfor %}
             </ul>
         </div>
     </div>
@@ -37,37 +24,12 @@
 
 
     <ul class="timeline">
-    {% for document in AllDocument %}
-<!--         <li>
-          <div class="timeline-badge"><i class="glyphicon glyphicon-check"></i></div>
-          <div class="timeline-panel">
-            <div class="timeline-heading">
-              <h4 class="timeline-title">Mussum ipsum cacilds</h4>
-              <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11 hours ago via Twitter</small></p>
-            </div>
-            <div class="timeline-body">
-              <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis leo. Manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa nadis i pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.</p>
-            </div>
-          </div>
-        </li> 
-        <li>
-          <div class="timeline-badge danger"><i class="glyphicon glyphicon-credit-card"></i></div>
-          <div class="timeline-panel">
-            <div class="timeline-heading">
-              <h4 class="timeline-title">Mussum ipsum cacilds</h4>
-            </div>
-            <div class="timeline-body">
-              <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis leo. Manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa nadis i pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.</p>
-            </div>
-          </div>
-        </li>-->
-        {% if document.send_Department.department_Members == request.user %}
-
+    {% for document in user_documents %}
         <li>
           <div class="timeline-badge info"><i class="glyphicon glyphicon-floppy-disk"></i></div>
           <div class="timeline-panel">
             <div class="timeline-heading">
-              <h4 class="timeline-title">{{document.name}}</h4>
+              <h4 class="timeline-title" id="{{document.name}}">{{document.name}}</h4>
               <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> {{document.createtime}} By:{{document.user}}</small></p>
             </div>
             <div class="timeline-body">
@@ -81,7 +43,6 @@
             </div>
           </div>
         </li>
-        {%endif%}
         {% endfor %}
     </ul>
 

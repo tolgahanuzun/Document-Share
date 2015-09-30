@@ -56,12 +56,13 @@ def home(request):
         Document_available = documentAvailable(AllDocument)
         currentTime = timezone.localtime(timezone.now())
         
-        print Department.department_Members
-        if request.user == Department.department_Members:
-            print Depart
+
+        user_documents = Document.objects.filter(send_Department__department_Members=request.user)
+
 
         return render(request, "index.html", 
                       {'AllDocument':AllDocument, 'currentTime':currentTime,
-                       'Document_available':Document_available,'Depart':Depart})
+                       'Document_available':Document_available,'Depart':Depart,
+                       'user_documents': user_documents})
     else:
         return render(request, "index.html")
